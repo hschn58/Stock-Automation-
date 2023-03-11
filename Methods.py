@@ -29,8 +29,11 @@ def ticks_norm(list, year):
         except IndexError:
             continue
     lst = np.unique(lst).tolist()
-    if length<=14:
-        lst+=[year[-2]]
+    try:
+        if length<=14:
+            lst+=[year[-2]]
+    except IndexError:
+        continue
     if length>14:
         for i in range(length):
             try:
@@ -38,7 +41,7 @@ def ticks_norm(list, year):
                     lst=lst[:(i-1)]+lst[i:]
             except IndexError:
                 continue
-                    
+        lst+=[year[-2]]         
     return lst
 
 def fix_date(df):
