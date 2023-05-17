@@ -5,9 +5,9 @@ import datetime
 import numpy as np
 
 
-data_path =r"DATA_PATH"
-save_loc = r"SAVE_LOC"
-file_name = r"FILE_NAME"
+data_path =r"C:\Users\jim\OneDrive\Desktop\Stock Automation\Data Files"
+save_loc = r"C:\Users\jim\OneDrive\Desktop"
+file_name = r"SCM Control Sheet.xls"
 
 os.chdir(data_path)
 var1 = pd.read_excel(file_name, header = 0)
@@ -49,15 +49,15 @@ while True:
                     
                 except KeyError:
                     sum1 = 0
-                if sum1 != 0 or (sum1=0 & sum(value)!=0):
+                if sum1 != 0 or (sum1==0 and sum(value)!=0):
                     value+=[sum1]
                     year+=[i]
                 try:
-                    sum2 = sum(var[f'{years[i]}NetDepWD'])
+                    sum2 = sum(var[f'{i}NetDepWD'])
                 except KeyError:
                     sum2='N'
                 if sum2!='N':
-                    NetDepWd+=[sum2]
+                    NetDepWD+=[sum2]
             if len(group)==0:
                 print('\n')
                 print('##########################')
