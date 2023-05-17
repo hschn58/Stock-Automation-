@@ -1,6 +1,7 @@
 import numpy as np
 import math
 
+#Group number confirmation 
 def grcheck(format1,format2,group):
     while True:
         var = input(f"Th{format1} the entered group id{format2}: {group[:]} \n Confirm? (y/n) >")
@@ -9,6 +10,7 @@ def grcheck(format1,format2,group):
         elif var=='n':
             group = [int(x) for x in input("\nPlease enter a group id (where 000019 is 19) \n If entering multiple group ids, separate each by a single space.> ").split(' ')]
 
+#returns start year of data in excel file 
 def startcol_finder(df):
             x = df.columns
             for i in range(len(x)):
@@ -18,6 +20,7 @@ def startcol_finder(df):
                 except ValueError:
                     continue
 
+#Make ticks look nice (matplotlib can usually do it better)
 def ticks_norm(list, year):
     lst=[]
     length=len(year)
@@ -44,12 +47,14 @@ def ticks_norm(list, year):
         lst+=[year[-2]]         
     return lst
 
+#Get rid of time information in a single day (00:00:00)
 def fix_date(df):
     df.reset_index(inplace=True)
     y = [str(date) for date in df['Date']]
     df[['Date', 'Delete']] = [date.split(' ') for date in y]
     df.drop('Delete', axis = 1, inplace=True) 
 
+#attempt to correctly name a set of group codes with the appropriate last name 
 def find_name(df):
        lst1=[]
        for x in range(len(df['shortName'])):
@@ -71,7 +76,7 @@ def find_name(df):
                string+=f'-{lst2[i]}'
        return string
 
-
+#make a given large integer divisible by 5 (make it clean)
 def divide_by_five(interger):
     
     interger1 = str(int(math.fabs(interger*1.05)))
