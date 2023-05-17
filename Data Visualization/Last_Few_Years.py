@@ -101,7 +101,7 @@ while True:
     
     
     names = {'index': 'Year', 'Account Value': 'Account Value', 'Percent Change': 'Percent Change'}
-    chart = pd.DataFrame(columns=years, index = ['Account Value', 'Percent Change']).reset_index()
+    chart = pd.DataFrame(columns=years, index = ['Account Value', 'Percent Change', 'Deposits/Withdrawals']).reset_index()
     chart.rename(columns=names, inplace=True)
     
 
