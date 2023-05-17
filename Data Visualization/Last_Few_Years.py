@@ -37,18 +37,27 @@ while True:
             if len(group)==1:
                 format1='is is'
                 format2=''
+                
             value=[]
             year=[]
+            NetDepWD=[]
             
             lower=startcol_finder(var)
             for i in range(lower, upper+1):
                 try:
-                    summ = sum(var[f'{i}ClosingBal'])
+                    sum1 = sum(var[f'{i}ClosingBal'])
+                    
                 except KeyError:
-                    summ = 0
-                if summ!=0:
-                    value+=[summ]
+                    sum1 = 0
+                if sum1 != 0 or (sum1=0 & sum(value)!=0):
+                    value+=[sum1]
                     year+=[i]
+                try:
+                    sum2 = sum(var[f'{years[i]}NetDepWD'])
+                except KeyError:
+                    sum2='N'
+                if sum2!='N':
+                    NetDepWd+=[sum2]
             if len(group)==0:
                 print('\n')
                 print('##########################')
@@ -87,8 +96,11 @@ while True:
             year1+=[i]
 
     
-    years = [str(x) for x in year[-4:]]+[str(upper)]
-
+    years = [str(x) for x in year[-4:]]
+    if years[-1] != str(upper):
+        years += str(upper)
+        years.remove(f'{years[0]}')
+        
     #given years for account value, get indice associated w that year for the adjopeningbalance
     indices = []
 
@@ -116,6 +128,9 @@ while True:
         chart[years[i]].iloc[1]=((chart[years[i]].iloc[0]/value1[indices[i]])-1)*100
 
     chart[years[-1]].iloc[1]=((chart[years[-1]].iloc[0]/value1[-1])-1)*100
+    
+    for i in range(length):
+        chart[years[i]].iloc[2]=NetDepWD[i]
 
     #formatting text to look like currency/correct rounding
     for i in range(length): 
@@ -123,7 +138,7 @@ while True:
 
     for i in range(length): 
         chart[years[i]].iloc[1]="{:.2f}%".format(chart[years[i]].iloc[1])
-
+    
     cell_text=[]
     for row in range(len(chart)):
         cell_text.append(chart.iloc[row])
@@ -141,12 +156,14 @@ while True:
 
     # Set Cell Size (Optional)
 
-    for r in range(0, len(lst)):
-        cell = Chartdata[0, r]
+    for col in range(0, len(lst)):
+        cell = Chartdata[0, col]
         cell.set_height(0.25)
-        cell = Chartdata[1, r]
+        cell = Chartdata[1, col]
         cell.set_height(0.25)
-        cell = Chartdata[2, r]
+        cell = Chartdata[2, col]
+        cell.set_height(0.25)
+        cell= Chartdata[3, col]
         cell.set_height(0.25)
 
     empty = np.array([])
