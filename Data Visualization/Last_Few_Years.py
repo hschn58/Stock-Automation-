@@ -49,7 +49,7 @@ while True:
                     
                 except KeyError:
                     sum1 = 0
-                if sum1 != 0 or (sum1==0 and sum(value)!=0):
+                if sum1 != 0 or (sum1==0 and sum1(value)!=0):
                     value+=[sum1]
                     year+=[i]
                 try:
