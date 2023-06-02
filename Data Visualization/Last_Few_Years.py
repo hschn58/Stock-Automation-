@@ -5,9 +5,9 @@ import datetime
 import numpy as np
 
 
-data_path =r"C:\Users\jim\OneDrive\Desktop\Stock Automation\Data Files"
-save_loc = r"C:\Users\jim\OneDrive\Desktop"
-file_name = r"SCM Control Sheet.xls"
+data_path =r"ADD PATH"
+save_loc = r"ADD PATH"
+file_name = r"ADD PATH"
 
 os.chdir(data_path)
 var1 = pd.read_excel(file_name, header = 0)
