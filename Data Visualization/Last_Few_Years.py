@@ -17,7 +17,13 @@ while True:
     while True:
         try:
             group = [int(x) for x in input("\nPlease enter a group id (where 000019 is 19) \nIf entering multiple group ids, separate each by a single space.> ").split(' ')]
-            
+            if len(group)==1:
+                format1='is is'
+                format2=''
+            else:
+                format1='ese are'
+                format2='s'
+            group = grcheck(format1,format2,group)
             groupstring=[]
             if len(group)>1:
                 format1='ese are'
@@ -48,12 +54,12 @@ while True:
                     sum1 = sum(var[f'{i}ClosingBal'])
                     
                 except KeyError:
-                    sum1 = 0
-                if sum1 != 0 or (sum1==0 and sum(value)!=0):
+                    sum1 = 'd'
+                if sum1 != 'd':
                     value+=[sum1]
                     year+=[i]
                 try:
-                    sum2 = sum(var[f'{i}NetDepWD'])
+                    sum2 = sum(var[pd.DataFrame(var.columns)[0][pd.DataFrame([x[-12:] for x in var.columns])[0]==f'{i}NetDepWD']].reset_index().iloc[:,-1])
                 except KeyError:
                     sum2='N'
                 if sum2!='N':
@@ -63,13 +69,13 @@ while True:
                 print('##########################')
                 print("No group id was entered.")
                 print('##########################')
-            elif value == []:
+            elif sum(value) == 0:
                 print('\n')
                 print('##########################')
                 print('This group id has no data')
                 print('##########################')
             else:
-                grcheck(format1,format2,group)
+                
                 break    
         except ValueError:
             print('\n')
@@ -77,7 +83,16 @@ while True:
             print('Group ids must be entered as integers.')
             print('#######################################')
             continue
-
+    
+    #add label here so that it is assigned before chart is created
+    
+    label = input('Please enter the name for this group code:')
+    while True:
+        var = input(f"This is the entered label: {label} \n Confirm? (y/n) >")
+        if var=="y":
+            break
+        elif var=="n":
+            label = input("Please enter the name for this group code:")
     #year bounds
 
     lower = startcol_finder(var)
@@ -98,7 +113,7 @@ while True:
     
     years = [str(x) for x in year[-4:]]
     if years[-1] != str(upper):
-        years += str(upper)
+        years += [str(upper)]
         years.remove(f'{years[0]}')
         
     #given years for account value, get indice associated w that year for the adjopeningbalance
@@ -110,8 +125,6 @@ while True:
         for j in range(len(year1)):
             if year1[j]==int(years[i]):
                 indices+=[j]
-    
-    
     names = {'index': 'Year', 'Account Value': 'Account Value', 'Percent Change': 'Percent Change'}
     chart = pd.DataFrame(columns=years, index = ['Account Value', 'Percent Change', 'Deposits/Withdrawals']).reset_index()
     chart.rename(columns=names, inplace=True)
@@ -130,7 +143,7 @@ while True:
     chart[years[-1]].iloc[1]=((chart[years[-1]].iloc[0]/value1[-1])-1)*100
     
     for i in range(length):
-        chart[years[i]].iloc[2]=NetDepWD[i]
+        chart[years[i]].iloc[2]=NetDepWD[(i-length)]
 
     #formatting text to look like currency/correct rounding
     for i in range(length): 
@@ -138,6 +151,9 @@ while True:
 
     for i in range(length): 
         chart[years[i]].iloc[1]="{:.2f}%".format(chart[years[i]].iloc[1])
+    
+    for i in range(length): 
+        chart[years[i]].iloc[2]="${:,.2f}".format(chart[years[i]].iloc[2])
     
     cell_text=[]
     for row in range(len(chart)):
@@ -172,13 +188,7 @@ while True:
 
     ax = plt.gca()
     ax.spines[["right", "top", "left", "bottom"]].set_visible(False)
-    label = input('Please enter the name for this group code:')
-    while True:
-        var = input(f"This is the entered label: {label} \n Confirm? (y/n) >")
-        if var=="y":
-            break
-        elif var=="n":
-            label = input("Please enter the name for this group code:")
+    
 
     plt.title(f"{label} \n Performance Chart")
     plt.tight_layout()
