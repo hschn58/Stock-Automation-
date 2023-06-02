@@ -75,7 +75,6 @@ while True:
                 print('This group id has no data')
                 print('##########################')
             else:
-                
                 break    
         except ValueError:
             print('\n')
@@ -87,12 +86,7 @@ while True:
     #add label here so that it is assigned before chart is created
     
     label = input('Please enter the name for this group code:')
-    while True:
-        var = input(f"This is the entered label: {label} \n Confirm? (y/n) >")
-        if var=="y":
-            break
-        elif var=="n":
-            label = input("Please enter the name for this group code:")
+    label = labelcheck(label)
     #year bounds
 
     lower = startcol_finder(var)
