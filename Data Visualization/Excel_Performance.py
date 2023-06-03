@@ -7,9 +7,9 @@ import os
 import numpy as np
 import warnings
 
-file_path=r"C:\Users\jim\OneDrive\Desktop\Stock Automation\Data Files"
-save_loc=r"C:\Users\jim\OneDrive\Desktop"
-data_file=r"SCM Control Sheet.xls"
+file_path=r"ADD_PATH"
+save_loc=r"ADD_PATH"
+data_file=r"ADD_PATH"
 
 os.chdir(file_path)
 var1 = pd.read_excel(data_file, header = 0)
