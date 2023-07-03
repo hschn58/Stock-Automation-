@@ -105,7 +105,7 @@ while True:
             year1+=[i]
 
     
-    years = [str(x) for x in year[-4:]]
+    years = [str(x) for x in year[-5:]]
     if years[-1] != str(upper):
         years += [str(upper)]
         years.remove(f'{years[0]}')
