@@ -1,3 +1,5 @@
+#creates a customer performance overview sheet from long-term investment data.
+
 #asset arrival date for lower 
 from Methods import startcol_finder, grcheck, ticks_norm, rm_zeroes, labelcheck
 import pandas as pd
