@@ -56,7 +56,7 @@ if len(div1) == 0:
     plt.title(ticker)
     ax.axhline(color = 'black', linewidth=0.51)
     plt.tight_layout()
-    plt.savefig('DivAndEarn.png')
+    plt.savefig(PATH)
     plt.show()
     sys.exit()
 else:
@@ -73,5 +73,5 @@ else:
     ax.axhline(color='black', linewidth=0.51)
     plt.title(ticker)
     plt.tight_layout()
-    plt.savefig('DivAndEarn.png') #save the figure 
+    plt.savefig(PATH) #save the figure 
     plt.show()
