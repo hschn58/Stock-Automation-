@@ -1,3 +1,6 @@
+#creates a composition of stocks in an excel sheet from given selection and filters for price changes greater than 3% from 3 day, 4 day, and 5 day moving averages
+#this is then integrated with microsoft task scheduler to be displayed at a certain time every weekday
+
 from Methods import fix_date
 import pandas as pd 
 import yfinance as yf
@@ -35,7 +38,7 @@ fix_date(Four_Days)
 fix_date(Three_Days)
 
 #remove prior file contents  
-file = r"C:\Users\jim\OneDrive\Desktop\Stock Automation\Data Files\StockHits.xlsx"
+file = r"FILE_LOC"
 writer = pd.ExcelWriter(file, engine ='openpyxl', mode='a', if_sheet_exists='replace')
 pd.DataFrame(columns = ['Five Day Average']).to_excel(writer, sheet_name='Sheet1', index = False, header = True)
 writer.close()
