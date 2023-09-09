@@ -1,3 +1,5 @@
+#companies whose annual earnings report increases every year since xxxx from tabular data
+
 import pandas as pd
 from datetime import date
 start_year = input("Please enter a start year:")
