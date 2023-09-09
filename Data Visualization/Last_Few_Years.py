@@ -1,3 +1,5 @@
+#creates a chart of customer account value, account percent change, and yearly net deposits/withdrawals.
+
 from Methods import grcheck, startcol_finder
 import pandas as pd
 import os
