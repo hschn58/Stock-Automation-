@@ -9,7 +9,7 @@ save_loc = r'FILE_PATH'
 
 
 divdata =pd.read_excel(file_path)
-#histdata = pd.read_excel('/Users/henryschnieders/desktop/History.xlsx')
+#histdata = pd.read_excel(file_path)
 
 divcols = divdata.columns
 #histcols = histdata.columns
