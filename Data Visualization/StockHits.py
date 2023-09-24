@@ -5,6 +5,11 @@ from Methods import fix_date
 import pandas as pd 
 import yfinance as yf
 
+
+
+Excel=r"Path_to_Excel.exe"
+file = r"Path_to_file"
+
 #list of stocks
 key = ['HD', 'HON', 'LMT', 'WSM', 'CLX', 'COST', 'GIS', 'MKC', 'PEP', 'BLK', 'ICE', 'JPM', 'PYPL', 'USB', 'ABT', 'AMGN', 'BMY', 'MRK', 'TMO', 'UNH', 'JNJ', 'WM', 'AAPL', 'AMZN', 'META', 'GOOG', 'MSFT', 'ADBE', 'ANET', 'CSCO', 'EBAY', 'ORCL', 'TXN', 'CNI', 'UNP', 'UPS','NEE', 'DUK', 'AMT', 'DLR', 'O']
 
@@ -38,7 +43,7 @@ fix_date(Four_Days)
 fix_date(Three_Days)
 
 #remove prior file contents  
-file = r"FILE_LOC"
+
 writer = pd.ExcelWriter(file, engine ='openpyxl', mode='a', if_sheet_exists='replace')
 pd.DataFrame(columns = ['Five Day Average']).to_excel(writer, sheet_name='Sheet1', index = False, header = True)
 writer.close()
@@ -84,4 +89,4 @@ sheet.column_dimensions[column].width = 20
 work_book.save(file)
 ###############################
 import subprocess
-subprocess.run([r"EXCEL.EXE", file])
+subprocess.run([Excel, file])
